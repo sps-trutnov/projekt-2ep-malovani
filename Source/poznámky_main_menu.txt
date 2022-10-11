@@ -1,0 +1,7 @@
+Podprogramy naší skupiny:
+- ZiskatObrazek()
+	- možnost vytvořit nový prázdný obrázek
+		- dá uživateli možnost: nastavit velikost obrázku, jméno souboru obrázku
+	- možnost otevřít stávající obrázek
+		- bude po uživateli chtít: cestu k souboru(v případě, že soubory se budou ukládat do stejné složky jen jméno souboru)
+	- možnost ukončit program
