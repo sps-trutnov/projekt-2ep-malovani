@@ -1,4 +1,4 @@
-﻿namespace Malovani
+namespace Malovani
 {
     internal class Program
     {
@@ -96,6 +96,12 @@
                     Console.WriteLine("Šířka bude 30");
                     length = 30;
                 }
+                //vytořeńí souboru obrázku v txt formátu
+                Console.WriteLine("Zadejte jméno souboru: ");
+                string filename = Console.ReadLine();
+                string filepath = @"obrazky\" + filename;
+                Console.WriteLine(filepath);
+                File.Create(filepath);
 
 
 
