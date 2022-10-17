@@ -14,18 +14,16 @@
             NastaveniBarev();
             Uvod();
 
-            char[,] obrazek = new char[2, 2] { { 'A', 'H' }, { 'O', ' ' } };
-            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 1, Y = 1 };
+            char[,] obrazek = ZiskatObrazek();
+            //char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
+            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 3, Y = 1 };
 
-            VykresleniKurzoru(kurzor, obrazek);
-            //char[,] obrazek = ZiskatObrazek();
 
 
             bool konec;
             do
             {
-                VykresleniObrazku(obrazek);
-                //VykresleniKurzoru(kurzor);
+                Vykresleni(kurzor, obrazek);
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
@@ -58,29 +56,30 @@
             throw new NotImplementedException();
         }
 
-        static void VykresleniKurzoru(PoziceKurzoru kurzor, char[,] obrazek)
+        static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
         {
-            for(int x = 0; x < obrazek.GetLength(0); x++) // souřadnice Y
-            {
-                for (int y = 0; y < obrazek.GetLength(1); y++) // souřadnice X
-                {
+            int prevY = 0;
 
-                    if (kurzor.X == x && kurzor.Y == y)
+            for(int y = 0; y < obrazek.GetLength(0); y++)
+            {
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                {
+                    if (prevY != y)
+                        Console.WriteLine("");
+                        prevY = y;
+
+                    if (kurzor.Y == y && kurzor.X == x)
                     {
-                        Console.SetCursorPosition(kurzor.Y, kurzor.X);
+                        Console.SetCursorPosition(kurzor.X, kurzor.Y);
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(obrazek[x, y]);
+                        Console.Write(obrazek[y, x]);
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
                     }
+                    else Console.Write(obrazek[y, x]);
                 }
             }
-        }
-
-        static void VykresleniObrazku(char[,] obrazek)
-        {
-            throw new NotImplementedException();
         }
 
         static char[,] ZiskatObrazek()
