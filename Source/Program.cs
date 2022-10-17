@@ -75,13 +75,30 @@
 
             if (key == ConsoleKey.NumPad1)
             {
-                // Defaultni rozmery console 120 x 30 znaku
-                int width = Console.WindowWidth;
-                int height = Console.WindowHeight;
-                Console.Write(width);
-                Console.WriteLine("");
-                Console.Write(height);
-                Console.WriteLine("Zmáčkli jste 1");
+               // Defaultni rozmery console 120 x 30 znaku
+               Console.WriteLine("Maximální šířka obrázku je 120");
+               Console.WriteLine("Zde zadejte šířku obrázku: ");
+               string input_width = Console.ReadLine();
+               int width = Convert.ToInt32(input_width);
+               if (width > 120)
+               {
+                    Console.WriteLine("Zadaná šířka je větší než maximální");
+                    Console.WriteLine("Šířka bude 120");
+                    width = 120;
+               }
+                Console.WriteLine("Maximální výška obrázku je 30");
+                Console.WriteLine("Zde zadejte výšku obrázku: ");
+                string input_length = Console.ReadLine();
+                int length = Convert.ToInt32(input_length);
+                if (length > 30)
+                {
+                    Console.WriteLine("Zadaná výška je větší než maximální");
+                    Console.WriteLine("Šířka bude 30");
+                    length = 30;
+                }
+
+
+
             }
 
             if (key == ConsoleKey.NumPad2)
