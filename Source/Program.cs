@@ -16,7 +16,7 @@
 
             char[,] obrazek = ZiskatObrazek();
             //char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
-            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 3, Y = 1 };
+            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
 
 
