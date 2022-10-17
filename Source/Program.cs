@@ -13,29 +13,25 @@
             NastaveniBarev();
             Uvod();
 
-            char[,] obrazek = ZiskatObrazek();
-            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
-
-            bool konec;
-            do
-            {
-                VykresleniObrazku(obrazek);
-                VykresleniKurzoru(kurzor);
-
-                ConsoleKeyInfo novaKlavesa = Console.ReadKey();
-
-                VlivOvladaniNaObrazek(novaKlavesa, obrazek);
-                kurzor = VlivOvladaniNaKurzor(novaKlavesa);
-                konec = ZnaciKonec(novaKlavesa);
-            } while (!konec);
-
-            UlozeniObrazku(obrazek);
-            Rozlouceni();
+            UlozeniObrazku();
         }
 
-        static void UlozeniObrazku(char[,] obrazek)
+        static void UlozeniObrazku()
         {
-            throw new NotImplementedException();
+            string[] obsahSouboru = new string[2] { "slovo", "slovo" }; 
+            Console.WriteLine("Zapište název obrázku:");
+            string jmenoObrazku = Console.ReadLine();
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            Console.WriteLine(celeJmenoObrazku);
+            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
+        }
+
+        static void NacteniObrazku(string jmenoObrazku)
+        {
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            string[] obsahSouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa)
