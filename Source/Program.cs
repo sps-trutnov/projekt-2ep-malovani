@@ -65,6 +65,43 @@
 
         static char[,] ZiskatObrazek()
         {
+            Console.WriteLine("Napište číslo funkce, kterou chcete zvolit.");
+            Console.WriteLine("1) Tvorba nového obrázku.");
+            Console.WriteLine("2) Otevření existujícího obrázku.");
+            Console.WriteLine("3) Ukončení aplikace.");
+            Console.WriteLine("");
+
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            if (key == ConsoleKey.NumPad1)
+            {
+                // Defaultni rozmery console 120 x 30 znaku
+                int width = Console.WindowWidth;
+                int height = Console.WindowHeight;
+                Console.Write(width);
+                Console.WriteLine("");
+                Console.Write(height);
+                Console.WriteLine("Zmáčkli jste 1");
+            }
+
+            if (key == ConsoleKey.NumPad2)
+            {
+                // NacteniObrazku();
+                Console.WriteLine("Zmáčkli jste 2");
+            }
+
+            if (key == ConsoleKey.NumPad3)
+            {
+                System.Environment.Exit(0);
+            }
+
+            if (key != ConsoleKey.NumPad1 && key !=  ConsoleKey.NumPad2 && key != ConsoleKey.NumPad3)
+            {
+                Console.WriteLine("Neplatná hodnota");
+                Console.WriteLine("");
+                ZiskatObrazek();
+            }
+
             throw new NotImplementedException();
         }
 
