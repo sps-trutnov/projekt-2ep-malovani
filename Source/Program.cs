@@ -82,13 +82,43 @@ namespace Malovani
             }
         }
 
+        static void VykresleniMenu()
+        {
+            Console.WriteLine("########################################################################################################################");
+            Console.WriteLine("########################################################################################################################");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                  ACII  MALOVÁNÍ                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                             * Vytvořit nový obrázek *                                            ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                          * Otevřít existující obrázek *                                          ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                               * Ukončit aplikaci *                                               ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                                  ###");
+            Console.WriteLine("###                                                                                                Projekt 2.EP sk.2 ###");
+            Console.WriteLine("########################################################################################################################");
+            Console.Write("########################################################################################################################");
+        }
+
         static char[,] ZiskatObrazek()
         {
-            Console.WriteLine("Napište číslo funkce, kterou chcete zvolit.");
-            Console.WriteLine("1) Tvorba nového obrázku.");
-            Console.WriteLine("2) Otevření existujícího obrázku.");
-            Console.WriteLine("3) Ukončení aplikace.");
-            Console.WriteLine("");
+            VykresleniMenu();
 
             ConsoleKey key = Console.ReadKey(true).Key;
 
