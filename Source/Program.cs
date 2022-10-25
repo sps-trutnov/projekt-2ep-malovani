@@ -1,4 +1,4 @@
-﻿namespace Malovani
+namespace Malovani
 {
     internal class Program
     {
@@ -132,11 +132,11 @@
                 {
                     for (int y = 0; y < obrazek.GetLength(1); y++)
                     {
-                        obrazek[y, x] = 'x';
+                        obrazek[y, x] = ' ';
                     }
                 }
                 
-                
+                return obrazek;
 
             }
 
