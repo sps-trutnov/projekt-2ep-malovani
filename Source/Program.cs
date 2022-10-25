@@ -10,17 +10,20 @@
 
         static void Main(string[] args)
         {
+
             NastaveniBarev();
             Uvod();
 
             char[,] obrazek = ZiskatObrazek();
+            //char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
+
+
 
             bool konec;
             do
             {
-                VykresleniObrazku(obrazek);
-                VykresleniKurzoru(kurzor);
+                Vykresleni(kurzor, obrazek);
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
@@ -53,14 +56,30 @@
             throw new NotImplementedException();
         }
 
-        static void VykresleniKurzoru(PoziceKurzoru kurzor)
+        static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
         {
-            throw new NotImplementedException();
-        }
+            int prevY = 0;
 
-        static void VykresleniObrazku(char[,] obrazek)
-        {
-            throw new NotImplementedException();
+            for(int y = 0; y < obrazek.GetLength(0); y++)
+            {
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                {
+                    if (prevY != y)
+                        Console.WriteLine("");
+                        prevY = y;
+
+                    if (kurzor.Y == y && kurzor.X == x)
+                    {
+                        Console.SetCursorPosition(kurzor.X, kurzor.Y);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(obrazek[y, x]);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }
+                    else Console.Write(obrazek[y, x]);
+                }
+            }
         }
 
         static char[,] ZiskatObrazek()
