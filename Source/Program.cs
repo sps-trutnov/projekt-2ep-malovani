@@ -13,13 +13,14 @@
             NastaveniBarev();
             Uvod();
 
+            NacteniObrazku();
             UlozeniObrazku();
         }
 
         static void UlozeniObrazku()
         {
             string[] obsahSouboru = new string[2] { "slovo", "slovo" }; 
-            Console.WriteLine("Zapište název obrázku:");
+            Console.Write("Zapište název obrázku: ");
             string jmenoObrazku = Console.ReadLine();
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
@@ -27,11 +28,17 @@
             File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
         }
 
-        static void NacteniObrazku(string jmenoObrazku)
+        static void NacteniObrazku()
         {
+            Console.Write("Zadejte jméno obrázku: ");
+            string jmenoObrazku = Console.ReadLine();
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
             string[] obsahSouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
+            foreach (string text in obsahSouboru)
+            {
+                Console.WriteLine(text);
+            }
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa)
