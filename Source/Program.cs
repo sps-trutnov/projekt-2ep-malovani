@@ -129,15 +129,18 @@ namespace Malovani
                         obrazek[y, x] = ' ';
                     }
                 }
-                
+
                 return obrazek;
 
             }
 
             if (key == ConsoleKey.NumPad2)
+
             {
-               //NacteniObrazku();
-                Console.WriteLine("Zmáčkli jste 2");
+                char[,] obrazek;
+                obrazek = NacteniObrazku();
+                return obrazek;
+             
             }
 
             if (key == ConsoleKey.NumPad3)
