@@ -1,4 +1,4 @@
-namespace Malovani
+﻿namespace Malovani
 {
     internal class Program
     {
@@ -76,24 +76,27 @@ namespace Malovani
             if (key == ConsoleKey.NumPad1)
             {
                // Defaultni rozmery console 120 x 30 znaku
-               Console.WriteLine("Maximální šířka obrázku je 120");
+               Console.WriteLine("Maximální šířka obrázku je 30");
                Console.WriteLine("Zde zadejte šířku obrázku: ");
+               // získání šířky
                string input_width = Console.ReadLine();
                int width = Convert.ToInt32(input_width);
                if (width > 120)
                {
                     Console.WriteLine("Zadaná šířka je větší než maximální");
-                    Console.WriteLine("Šířka bude 120");
+                    Console.WriteLine("Šířka bude 30");
                     width = 120;
                }
-                Console.WriteLine("Maximální výška obrázku je 30");
+                Console.WriteLine();
+                Console.WriteLine("Maximální výška obrázku je 120");
                 Console.WriteLine("Zde zadejte výšku obrázku: ");
+                // získání výšky
                 string input_length = Console.ReadLine();
                 int length = Convert.ToInt32(input_length);
                 if (length > 30)
                 {
                     Console.WriteLine("Zadaná výška je větší než maximální");
-                    Console.WriteLine("Šířka bude 30");
+                    Console.WriteLine("výška bude 120");
                     length = 30;
                 }
                 //vytořeńí souboru obrázku v txt formátu
@@ -103,7 +106,18 @@ namespace Malovani
                 Console.WriteLine(filepath);
                 File.Create(filepath);
 
+                char[,] obrazek;
+                obrazek = new char[length, width];
 
+                for (int x = 0; x < obrazek.GetLength(0); x++)
+                {
+                    for (int y = 0; y < obrazek.GetLength(1); y++)
+                    {
+                        obrazek[y, x] = 'x';
+                    }
+                }
+                
+                
 
             }
 
