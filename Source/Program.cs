@@ -1,4 +1,6 @@
-﻿namespace Malovani {
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Malovani {
     internal class Program {
         struct PoziceKurzoru {
             public int X;
@@ -10,7 +12,7 @@
             Uvod();
 
             char[,] obrazek = ZiskatObrazek();
-            PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0), Y = obrazek.GetLength(1)};
+            PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0)-1, Y = obrazek.GetLength(1)-1};
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
             bool konec;
@@ -42,14 +44,20 @@
         }
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max) {
-            if ((novaKlavesa.Key == ConsoleKey.LeftArrow) && kurzor.X < max.X) {
+            if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.X < max.X) {
                 kurzor.X = kurzor.X + 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.RightArrow) && kurzor.X > 0) {
+            } else if (novaKlavesa.Key == ConsoleKey.LeftArrow && kurzor.X > 0) {
                 kurzor.X = kurzor.X - 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.UpArrow) && kurzor.Y > 0) {
+            } else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.Y > 0) {
                 kurzor.Y = kurzor.Y - 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.DownArrow) && kurzor.Y > max.Y) {
+            } else if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.Y > max.Y) {
                 kurzor.Y = kurzor.Y + 1;
+            } else if (novaKlavesa.Key == ConsoleKey.Enter) {
+                if (kurzor.X == max.X && kurzor.Y != max.Y) {
+                    kurzor.X = 0;
+                    kurzor.Y = kurzor.Y + 1;
+                };
+
             } return kurzor;
         }
 
