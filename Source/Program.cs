@@ -15,7 +15,7 @@ namespace Malovani
             Uvod();
 
             char[,] obrazek = ZiskatObrazek();
-            //char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
+
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
 
@@ -32,13 +32,55 @@ namespace Malovani
                 konec = ZnaciKonec(novaKlavesa);
             } while (!konec);
 
-            UlozeniObrazku(obrazek);
+
+            UlozeniObrazku();
+            NacteniObrazku();
             Rozlouceni();
         }
 
-        static void UlozeniObrazku(char[,] obrazek)
+        static void UlozeniObrazku()
         {
-            throw new NotImplementedException();
+            string[] obsahSouboru = new string[2] {
+                "slovooo",
+                "slovo  ",
+            };
+            Console.Write("Zapište název obrázku: ");
+            string jmenoObrazku = Console.ReadLine();
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            Console.WriteLine(celeJmenoObrazku);
+            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
+        }
+
+        static char[,] NacteniObrazku()
+        {
+            char[,] obrazek;
+
+            Console.Write("Zadejte jméno obrázku: ");
+            string jmenoObrazku = Console.ReadLine();
+
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            string[] radkySouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
+
+            int sirkaObrazku = radkySouboru[0].Length;
+            int vyskaObrazku = radkySouboru.Length;
+
+            obrazek = new char[vyskaObrazku, sirkaObrazku];
+
+            for (int y = 0; y < radkySouboru.GetLength(0); y++)
+            {
+                char[] obsahVeStringu = radkySouboru[y].ToCharArray();
+
+                for (int x = 0; x < radkySouboru.GetLength(1); x++)
+                {
+
+                    obrazek[y, x] = obsahVeStringu[x];
+                }
+
+            }
+
+            return obrazek;
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa)
@@ -60,13 +102,13 @@ namespace Malovani
         {
             int prevY = 0;
 
-            for(int y = 0; y < obrazek.GetLength(0); y++)
+            for (int y = 0; y < obrazek.GetLength(0); y++)
             {
                 for (int x = 0; x < obrazek.GetLength(1); x++)
                 {
                     if (prevY != y)
                         Console.WriteLine("");
-                        prevY = y;
+                    prevY = y;
 
                     if (kurzor.Y == y && kurzor.X == x)
                     {
@@ -124,18 +166,18 @@ namespace Malovani
 
             if (key == ConsoleKey.NumPad1)
             {
-               // Defaultni rozmery console 120 x 30 znaku
-               Console.WriteLine("Maximální šířka obrázku je 30");
-               Console.WriteLine("Zde zadejte šířku obrázku: ");
-               // získání šířky
-               string input_width = Console.ReadLine();
-               int width = Convert.ToInt32(input_width);
-               if (width > 120)
-               {
+                // Defaultni rozmery console 120 x 30 znaku
+                Console.WriteLine("Maximální šířka obrázku je 30");
+                Console.WriteLine("Zde zadejte šířku obrázku: ");
+                // získání šířky
+                string input_width = Console.ReadLine();
+                int width = Convert.ToInt32(input_width);
+                if (width > 120)
+                {
                     Console.WriteLine("Zadaná šířka je větší než maximální");
                     Console.WriteLine("Šířka bude 30");
                     width = 120;
-               }
+                }
                 Console.WriteLine();
                 Console.WriteLine("Maximální výška obrázku je 120");
                 Console.WriteLine("Zde zadejte výšku obrázku: ");
@@ -170,7 +212,7 @@ namespace Malovani
                 char[,] obrazek;
                 obrazek = NacteniObrazku();
                 return obrazek;
-             
+
             }
 
             if (key == ConsoleKey.NumPad3)
@@ -178,7 +220,7 @@ namespace Malovani
                 System.Environment.Exit(0);
             }
 
-            if (key != ConsoleKey.NumPad1 && key !=  ConsoleKey.NumPad2 && key != ConsoleKey.NumPad3)
+            if (key != ConsoleKey.NumPad1 && key != ConsoleKey.NumPad2 && key != ConsoleKey.NumPad3)
             {
                 Console.WriteLine("Neplatná hodnota");
                 Console.WriteLine("");
