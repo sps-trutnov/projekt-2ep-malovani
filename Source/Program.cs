@@ -14,9 +14,9 @@ namespace Malovani
             NastaveniBarev();
             Uvod();
 
-            char[,] obrazek = ZiskatObrazek();
+            //char[,] obrazek = ZiskatObrazek();
             Console.Clear();
-            //char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
+            char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
 
@@ -57,29 +57,76 @@ namespace Malovani
             throw new NotImplementedException();
         }
 
+        static void Ohraniceni(int x, int y, char[,] obrazek, bool kurzor = false)
+        {
+            if (!kurzor)
+            {
+                if (x == 0)
+                {
+                    Console.Write("#");
+                    Console.Write(obrazek[y, x]);
+                }
+                else if (x == obrazek.GetLength(1))
+                {
+                    Console.Write(obrazek[y, x]);
+                    Console.Write("#");
+                }
+                else
+                    Console.Write(obrazek[y, x]);
+            }
+            else
+            {
+                if (x == 0)
+                {
+                    Console.Write("#");
+                }
+                else if (x == obrazek.GetLength(1))
+                {
+                    Console.Write("#");
+                }
+            }
+        }
+
         static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
         {
-            int prevY = 0;
+            int prevY = -1;
 
-            for(int y = 0; y < obrazek.GetLength(0); y++)
+            for (int y = 0; y < obrazek.GetLength(0); y++)
             {
                 for (int x = 0; x < obrazek.GetLength(1); x++)
                 {
                     if (prevY != y)
+                    {
                         Console.WriteLine("");
                         prevY = y;
+                    }
+                        
 
                     if (kurzor.Y == y && kurzor.X == x)
                     {
+
                         Console.SetCursorPosition(kurzor.X, kurzor.Y);
+
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(obrazek[y, x]);
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
                     }
-                    else Console.Write(obrazek[y, x]);
+                    else
+                    {
+                        
+                    }
                 }
+
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                {
+                    if (x == obrazek.GetLength(1))
+                    {
+                        Console.Write("#");
+                    }
+                }
+
             }
         }
 
