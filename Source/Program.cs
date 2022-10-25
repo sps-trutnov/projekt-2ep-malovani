@@ -118,12 +118,6 @@ namespace Malovani
                     Console.WriteLine("výška bude 120");
                     length = 30;
                 }
-                //vytořeńí souboru obrázku v txt formátu
-                Console.WriteLine("Zadejte jméno souboru: ");
-                string filename = Console.ReadLine();
-                string filepath = @"obrazky\" + filename;
-                Console.WriteLine(filepath);
-                File.Create(filepath);
 
                 char[,] obrazek;
                 obrazek = new char[length, width];
@@ -142,7 +136,7 @@ namespace Malovani
 
             if (key == ConsoleKey.NumPad2)
             {
-                // NacteniObrazku();
+               //NacteniObrazku();
                 Console.WriteLine("Zmáčkli jste 2");
             }
 
