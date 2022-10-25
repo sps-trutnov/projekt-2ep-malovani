@@ -19,8 +19,7 @@ namespace Malovani
 
             char[,] obrazek;// = ZiskatObrazek();
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
-            char[] Blacklist; //seznam nefunkčních kláves
-            Blacklist = new char[2] { 'f', (char)14};//nebere to \n (14 není \n)
+            char[] Blacklist = {(char)13};//nebere to '\n'
 
             //dočasné rešení
             obrazek = new char[,] { {'o','o'}, {'o','o'} };
@@ -45,7 +44,6 @@ namespace Malovani
                     Console.WriteLine();
                 }
                 Console.WriteLine();
-                Console.WriteLine();
             } while (!konec);
 
             UlozeniObrazku(obrazek);
@@ -66,18 +64,9 @@ namespace Malovani
         {
             if (!Blacklist.Contains(novaKlavesa.KeyChar))
             {
-                Console.Write("something");
-                switch (novaKlavesa.KeyChar)
-                {
-                    case (char)13:
-                        Console.Write(" -- enter -- ");
-                        break;
-                    default:
-                        obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
-                        break;
-                }
+                obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
             }
-            Console.WriteLine(" -- "+novaKlavesa.KeyChar);
+            Console.WriteLine();
         }
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa)
