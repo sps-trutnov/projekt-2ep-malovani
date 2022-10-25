@@ -35,18 +35,24 @@
             Rozlouceni();
         }
 
-        static void UlozeniObrazku()
+        static void UlozeniObrazku(char[,] obrazek)
         {
-            string[] obsahSouboru = new string[2] {
-                "slovooo",
-                "slovo  ",
-            }; 
+            for(int y = 0; y < obrazek.GetLength(0); y++)
+            {
+
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                {
+                    string[]
+                }
+            }
+
             Console.Write("Zapište název obrázku: ");
             string jmenoObrazku = Console.ReadLine();
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
             Console.WriteLine(celeJmenoObrazku);
             File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
+            
         }
 
         static char[,] NacteniObrazku()
