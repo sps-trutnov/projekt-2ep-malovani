@@ -10,6 +10,7 @@
             Uvod();
 
             char[,] obrazek = ZiskatObrazek();
+            PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0), Y = obrazek.GetLength(1)};
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
             bool konec;
@@ -20,7 +21,7 @@
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
                 VlivOvladaniNaObrazek(novaKlavesa, obrazek);
-                kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, obrazek);
+                kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
                 konec = ZnaciKonec(novaKlavesa);
             } while (!konec);
 
@@ -40,18 +41,16 @@
             throw new NotImplementedException();
         }
 
-        static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, char[,] obrazek) {
-            if ((novaKlavesa.Key == ConsoleKey.LeftArrow) && kurzor.X <= obrazek.GetLength(0)) {
+        static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max) {
+            if ((novaKlavesa.Key == ConsoleKey.LeftArrow) && kurzor.X < max.X) {
                 kurzor.X = kurzor.X + 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.RightArrow) && kurzor.X >= 0) {
+            } else if ((novaKlavesa.Key == ConsoleKey.RightArrow) && kurzor.X > 0) {
                 kurzor.X = kurzor.X - 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.UpArrow) && kurzor.X < obrazek.GetLength(1)) {
+            } else if ((novaKlavesa.Key == ConsoleKey.UpArrow) && kurzor.Y > 0) {
                 kurzor.Y = kurzor.Y - 1;
-            } else if ((novaKlavesa.Key == ConsoleKey.DownArrow) && kurzor.X >= 0) {
+            } else if ((novaKlavesa.Key == ConsoleKey.DownArrow) && kurzor.Y > max.Y) {
                 kurzor.Y = kurzor.Y + 1;
-            }
-            
-            return kurzor;
+            } return kurzor;
         }
 
         static void VykresleniKurzoru(PoziceKurzoru kurzor) {
