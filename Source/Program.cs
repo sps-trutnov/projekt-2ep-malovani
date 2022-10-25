@@ -167,7 +167,7 @@ namespace Malovani
             if (key == ConsoleKey.NumPad1)
             {
                 // Defaultni rozmery console 120 x 30 znaku
-                Console.WriteLine("Maximální šířka obrázku je 30");
+                Console.WriteLine("Maximální šířka obrázku je 120");
                 Console.WriteLine("Zde zadejte šířku obrázku: ");
                 // získání šířky
                 string input_width = Console.ReadLine();
@@ -175,7 +175,7 @@ namespace Malovani
                 if (width > 120)
                 {
                     Console.WriteLine("Zadaná šířka je větší než maximální");
-                    Console.WriteLine("Šířka bude 30");
+                    Console.WriteLine("Šířka bude 120");
                     width = 120;
                 }
                 Console.WriteLine();
@@ -187,7 +187,7 @@ namespace Malovani
                 if (length > 30)
                 {
                     Console.WriteLine("Zadaná výška je větší než maximální");
-                    Console.WriteLine("výška bude 120");
+                    Console.WriteLine("výška bude 30");
                     length = 30;
                 }
 
