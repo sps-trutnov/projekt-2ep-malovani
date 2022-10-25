@@ -23,7 +23,7 @@
             bool konec;
             do
             {
-                Vykresleni(kurzor, obrazek);
+                VykresleniKurzor(kurzor, obrazek);
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
@@ -56,7 +56,7 @@
             throw new NotImplementedException();
         }
 
-        static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
+        static void VykresleniKurzor(PoziceKurzoru kurzor, char[,] obrazek)
         {
             int prevY = 0;
 
