@@ -12,7 +12,7 @@
             char[,] obrazek = ZiskatObrazek();
             PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0)-1, Y = obrazek.GetLength(1)-1};
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
-            char[] Whitelist = { '!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', ',', '+', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~' };
+            char[] Whitelist = {(char)32,'!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', ',', '+', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~' };
 
             bool konec = false;
             do
@@ -22,10 +22,10 @@
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
-                VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
-                //kurzor = VlivOvladaniNaKurzor(novaKlavesa);
+                kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
+                kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
                 //konec = ZnaciKonec(novaKlavesa); rovněž aby ro  to běžlo
-                for(int y = 0; y < obrazek.GetLength(1); y++)
+                for (int y = 0; y < obrazek.GetLength(1); y++)
                 {
                     for (int x = 0; x < obrazek.GetLength(0); x++)
                     {
@@ -34,7 +34,6 @@
                     Console.WriteLine();
                 }
                 Console.WriteLine();
-                kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
             } while (!konec);
 
             UlozeniObrazku(obrazek);
@@ -74,8 +73,7 @@
                 if (kurzor.X == max.X && kurzor.Y != max.Y) {
                     kurzor.X = 0;
                     kurzor.Y = kurzor.Y + 1;
-                };
-
+                } else if (kurzor.X != max.X) kurzor.X = kurzor.X + 1;
             } return kurzor;
         }
 
@@ -88,7 +86,7 @@
         }
 
         static char[,] ZiskatObrazek() {
-            throw new NotImplementedException();
+            return new char[,] { { '0', '0' }, { '0', '0' } };
         }
 
         static void NastaveniBarev() {
