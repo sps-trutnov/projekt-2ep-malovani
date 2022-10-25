@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Malovani {
+﻿namespace Malovani {
     internal class Program {
         struct PoziceKurzoru {
             public int X;
@@ -14,17 +12,29 @@ namespace Malovani {
             char[,] obrazek = ZiskatObrazek();
             PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0)-1, Y = obrazek.GetLength(1)-1};
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
+            char[] Whitelist = { '!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', ',', '+', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~' };
 
-            bool konec;
-            do {
-                VykresleniObrazku(obrazek);
-                VykresleniKurzoru(kurzor);
+            bool konec = false;
+            do
+            {
+                //VykresleniObrazku(obrazek);
+                //VykresleniKurzoru(kurzor); aby to běželo
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
-                VlivOvladaniNaObrazek(novaKlavesa, obrazek);
-                kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
-                konec = ZnaciKonec(novaKlavesa);
+                VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
+                //kurzor = VlivOvladaniNaKurzor(novaKlavesa);
+                //konec = ZnaciKonec(novaKlavesa); rovněž aby ro  to běžlo
+                for(int y = 0; y < obrazek.GetLength(1); y++)
+                {
+                    for (int x = 0; x < obrazek.GetLength(0); x++)
+                    {
+                        Console.Write(obrazek[x,y]);// je to nehezké => nejdřív x, pak y
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+                kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
             } while (!konec);
 
             UlozeniObrazku(obrazek);
@@ -39,8 +49,16 @@ namespace Malovani {
             throw new NotImplementedException();
         }
 
-        static void VlivOvladaniNaObrazek(ConsoleKeyInfo novaKlavesa, char[,] obrazek) {
-            throw new NotImplementedException();
+        static PoziceKurzoru VlivOvladaniNaObrazek(ConsoleKeyInfo novaKlavesa, char[,] obrazek, char[] whitelist, PoziceKurzoru kurzor, PoziceKurzoru max)
+        {
+            if (whitelist.Contains(novaKlavesa.KeyChar))
+            {
+                obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
+                kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false) , kurzor, max);
+
+            }
+            Console.WriteLine();
+            return kurzor;
         }
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max) {
