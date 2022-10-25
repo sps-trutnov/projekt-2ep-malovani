@@ -13,13 +13,34 @@
             NastaveniBarev();
             Uvod();
 
-            NacteniObrazku();
+            //char[,] obrazek = ZiskatObrazek();
+            //PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0};
+
+            //bool konec;
+            //do
+            //{
+                //VykresleniObrazku(obrazek);
+                //VykresleniKurzoru(kurzor);
+
+                //ConsoleKeyInfo novaKlavesa = Console.ReadKey();
+
+                //VlivOvladaniNaObrazek(novaKlavesa, obrazek);
+                //kurzor = VlivOvladaniNaKurzor(novaKlavesa);
+                //konec = ZnaciKonec(novaKlavesa);
+            //} while (!konec);
+
+            
             UlozeniObrazku();
+            NacteniObrazku();
+            Rozlouceni();
         }
 
         static void UlozeniObrazku()
         {
-            string[] obsahSouboru = new string[2] { "slovo", "slovo" }; 
+            string[] obsahSouboru = new string[2] {
+                "slovooo",
+                "slovo  ",
+            }; 
             Console.Write("Zapište název obrázku: ");
             string jmenoObrazku = Console.ReadLine();
             string priponaObrazku = ".txt";
@@ -28,17 +49,41 @@
             File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
         }
 
-        static void NacteniObrazku()
+        static char[,] NacteniObrazku()
         {
+            char[,] obrazek;
+
             Console.Write("Zadejte jméno obrázku: ");
             string jmenoObrazku = Console.ReadLine();
+
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
-            string[] obsahSouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
-            foreach (string text in obsahSouboru)
+            string[] radkySouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
+
+            int sirkaObrazku = radkySouboru[0].Length;
+            int vyskaObrazku = radkySouboru.Length;
+
+            obrazek = new char[vyskaObrazku, sirkaObrazku];
+
+            for(int y = 0; y < radkySouboru.GetLength(0); y++)
+            {
+                char[] obsahVeStringu = radkySouboru[y].ToCharArray();
+
+                for (int x = 0; x < radkySouboru.GetLength(1); x++)
+                {
+
+                    obrazek[y, x] = obsahVeStringu[x];
+                }
+                
+            }
+
+
+            /*foreach (string text in obsahSouboru)
             {
                 Console.WriteLine(text);
-            }
+            }*/
+
+            return obrazek;
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa)
