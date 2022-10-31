@@ -17,22 +17,14 @@
             bool konec = false;
             do
             {
-                //VykresleniObrazku(obrazek);
-                //VykresleniKurzoru(kurzor); aby to běželo
+                VykresleniObrazku(obrazek);
+                VykresleniKurzoru(kurzor);
 
                 ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
                 kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
                 kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
-                //konec = ZnaciKonec(novaKlavesa); rovněž aby ro  to běžlo
-                for (int y = 0; y < obrazek.GetLength(1); y++)
-                {
-                    for (int x = 0; x < obrazek.GetLength(0); x++)
-                    {
-                        Console.Write(obrazek[x,y]);// je to nehezké => nejdřív x, pak y
-                    }
-                    Console.WriteLine();
-                }
+                konec = ZnaciKonec(novaKlavesa);
                 Console.WriteLine();
             } while (!konec);
 
@@ -86,7 +78,7 @@
         }
 
         static char[,] ZiskatObrazek() {
-            return new char[,] { { '0', '0' }, { '0', '0' } };
+            throw new NotImplementedException();
         }
 
         static void NastaveniBarev() {
