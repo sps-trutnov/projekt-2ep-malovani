@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Malovani
 {
     internal class Program
@@ -10,14 +12,20 @@ namespace Malovani
 
         static void Main(string[] args)
         {
-
             NastaveniBarev();
             Uvod();
 
+
             //char[,] obrazek = ZiskatObrazek();
             Console.Clear();
-            char[,] obrazek = new char[2, 4] { { 'A', 'H', 'O', 'J' }, { 'J', 'O', 'H', 'A' } };
-            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
+            //char[,] obrazek = new char[2, 5] { { 'A', 'H', 'O', 'J', '!' }, { '!', 'J', 'O', 'H', 'A' } };
+            Random nahoda = new Random();
+            char[,] obrazek = new char[10, 10];
+            for (int y = 0; y < obrazek.GetLength(0); y++)
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                    obrazek[y, x] = (char)nahoda.Next(42, 127);
+
+            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 2, Y = 0 };
 
 
 
@@ -57,38 +65,9 @@ namespace Malovani
             throw new NotImplementedException();
         }
 
-        static void Ohraniceni(int x, int y, char[,] obrazek, bool kurzor = false)
-        {
-            if (!kurzor)
-            {
-                if (x == 0)
-                {
-                    Console.Write("#");
-                    Console.Write(obrazek[y, x]);
-                }
-                else if (x == obrazek.GetLength(1))
-                {
-                    Console.Write(obrazek[y, x]);
-                    Console.Write("#");
-                }
-                else
-                    Console.Write(obrazek[y, x]);
-            }
-            else
-            {
-                if (x == 0)
-                {
-                    Console.Write("#");
-                }
-                else if (x == obrazek.GetLength(1))
-                {
-                    Console.Write("#");
-                }
-            }
-        }
-
         static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
         {
+            Console.SetCursorPosition(0, 0);
             int prevY = -1;
 
             for (int y = 0; y < obrazek.GetLength(0); y++)
@@ -104,8 +83,18 @@ namespace Malovani
 
                     if (kurzor.Y == y && kurzor.X == x)
                     {
-
-                        Console.SetCursorPosition(kurzor.X, kurzor.Y);
+                        Ohraniceni(x, y, obrazek, true);
+                        if (obrazek.GetLength(0) > 28 || obrazek.GetLength(1) > 118)
+                            if (obrazek.GetLength(0) >= 28)
+                                Console.SetCursorPosition(0, kurzor.Y + 1);
+                            if (obrazek.GetLength(1) >= 118)
+                                Console.SetCursorPosition(kurzor.X + 2, 0);
+                        else if (obrazek.GetLength(0) <= 28 || obrazek.GetLength(1) <= 118)
+                            if (obrazek.GetLength(0) <= 28)
+                                Console.SetCursorPosition(0, kurzor.Y + 1);
+                            if (obrazek.GetLength(1) <= 118)
+                                Console.SetCursorPosition(kurzor.X + 2, Console.GetCursorPosition().Top);
+                        //Console.SetCursorPosition(kurzor.X+2, kurzor.Y+1);
 
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
@@ -115,19 +104,89 @@ namespace Malovani
                     }
                     else
                     {
-                        
+                        Ohraniceni(x, y, obrazek, false);
                     }
                 }
-
-                for (int x = 0; x < obrazek.GetLength(1); x++)
-                {
-                    if (x == obrazek.GetLength(1))
-                    {
-                        Console.Write("#");
-                    }
-                }
-
             }
+
+            if (obrazek.GetLength(0) <= 28)
+            {
+                int offset;
+                if (120 - obrazek.GetLength(1) <= 4 && 120 - obrazek.GetLength(1) >= 0)
+                {
+                    offset = 120 - obrazek.GetLength(1);
+                }
+                else
+                    offset = 4;
+                    Debug.WriteLine(offset);
+
+
+                Console.SetCursorPosition(0, 0);
+                Console.BackgroundColor = ConsoleColor.Gray;
+                for (int x = 0; x < obrazek.GetLength(1) + offset; x++)
+                {
+                    Console.Write(" ");
+                }
+                Console.BackgroundColor = ConsoleColor.White;
+            }
+
+            if (obrazek.GetLength(0) <= 29)
+            {
+                int offset;
+                if (120 - obrazek.GetLength(1) <= 4 && 120 - obrazek.GetLength(1) >= 0)
+                {
+                    offset = 120 - obrazek.GetLength(1);
+                }
+                else
+                    offset = 4;
+
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.SetCursorPosition(0, obrazek.GetLength(0)+1);
+                for (int x = 0; x < obrazek.GetLength(1) + offset; x++)
+                {
+                    Console.Write(" ");
+                }
+                Console.BackgroundColor = ConsoleColor.White;
+            }
+        }
+
+        static void Ohraniceni(int x, int y, char[,] obrazek, bool kurzor = false)
+        {
+            if (!kurzor)
+            {
+                if (x == 0)
+                {
+                    if (obrazek.GetLength(1) <= 118)
+                        OhraniceniVykresleni();
+                    Console.Write(obrazek[y, x]);
+                }
+                else if (x == obrazek.GetLength(1)-1)
+                {
+                    Console.Write(obrazek[y, x]);
+                    if (obrazek.GetLength(1) <= 119)
+                        OhraniceniVykresleni();
+                }
+                else
+                {
+                    Console.Write(obrazek[y, x]);
+                }
+            }
+            else
+            {
+                if (x == 0)
+                    if (obrazek.GetLength(1) <= 118)
+                        OhraniceniVykresleni();
+                if (x == obrazek.GetLength(1))
+                    if (obrazek.GetLength(1) <= 119)
+                        OhraniceniVykresleni();
+            }
+        }
+
+        static void OhraniceniVykresleni()
+        {
+            Console.BackgroundColor = ConsoleColor.Gray;
+            Console.Write("  ");
+            Console.BackgroundColor = ConsoleColor.White;
         }
 
         static char[,] ZiskatObrazek()
