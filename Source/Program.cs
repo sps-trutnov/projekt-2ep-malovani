@@ -13,37 +13,42 @@
             NastaveniBarev();
             Uvod();
 
-            //char[,] obrazek = ZiskatObrazek();
-            //PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0};
+            char[,] obrazek = ZiskatObrazek();
+            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0};
 
-            //bool konec;
-            //do
-            //{
-                //VykresleniObrazku(obrazek);
-                //VykresleniKurzoru(kurzor);
+            bool konec;
+            do
+            {
+                VykresleniObrazku(obrazek);
+                VykresleniKurzoru(kurzor);
 
-                //ConsoleKeyInfo novaKlavesa = Console.ReadKey();
+                ConsoleKeyInfo novaKlavesa = Console.ReadKey();
 
-                //VlivOvladaniNaObrazek(novaKlavesa, obrazek);
-                //kurzor = VlivOvladaniNaKurzor(novaKlavesa);
-                //konec = ZnaciKonec(novaKlavesa);
-            //} while (!konec);
+                VlivOvladaniNaObrazek(novaKlavesa, obrazek);
+                kurzor = VlivOvladaniNaKurzor(novaKlavesa);
+                konec = ZnaciKonec(novaKlavesa);
+            } while (!konec);
 
             
-            UlozeniObrazku();
+
+            UlozeniObrazku(obrazek);
             NacteniObrazku();
             Rozlouceni();
         }
 
         static void UlozeniObrazku(char[,] obrazek)
         {
+            string[] radky = new string[obrazek.GetLength(0)];
+
             for(int y = 0; y < obrazek.GetLength(0); y++)
             {
-
+                string aktualniRadek = ""; 
                 for (int x = 0; x < obrazek.GetLength(1); x++)
                 {
-                    string[]
+                    aktualniRadek = aktualniRadek + obrazek[y, x]; 
                 }
+                radky[y] = aktualniRadek;
+                Console.WriteLine(radky);
             }
 
             Console.Write("Zapište název obrázku: ");
@@ -51,7 +56,7 @@
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
             Console.WriteLine(celeJmenoObrazku);
-            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, obsahSouboru);
+            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, radky);
             
         }
 
@@ -71,23 +76,16 @@
 
             obrazek = new char[vyskaObrazku, sirkaObrazku];
 
-            for(int y = 0; y < radkySouboru.GetLength(0); y++)
+            for (int y = 0; y < radkySouboru.Length; y++)
             {
                 char[] obsahVeStringu = radkySouboru[y].ToCharArray();
 
-                for (int x = 0; x < radkySouboru.GetLength(1); x++)
+                for (int x = 0; x < radkySouboru[0].Length; x++)
                 {
 
                     obrazek[y, x] = obsahVeStringu[x];
                 }
-                
             }
-
-
-            /*foreach (string text in obsahSouboru)
-            {
-                Console.WriteLine(text);
-            }*/
 
             return obrazek;
         }
