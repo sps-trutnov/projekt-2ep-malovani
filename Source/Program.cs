@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Malovani
 {
     internal class Program
@@ -20,8 +18,6 @@ namespace Malovani
 
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
-
-
             bool konec;
             do
             {
@@ -33,7 +29,6 @@ namespace Malovani
                 kurzor = VlivOvladaniNaKurzor(novaKlavesa);
                 konec = ZnaciKonec(novaKlavesa);
             } while (!konec);
-
 
             UlozeniObrazku();
             NacteniObrazku();
@@ -79,7 +74,6 @@ namespace Malovani
 
                     obrazek[y, x] = obsahVeStringu[x];
                 }
-
             }
 
             return obrazek;
@@ -166,11 +160,11 @@ namespace Malovani
         static char[,] ZiskatObrazek()
         {
             VykresleniMenu();
-            
+
             int selectedOption = 1;
             bool keySwitch = false;
             bool selectionConfirmed = false;
-            
+
             while (selectionConfirmed == false)
             {
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -222,7 +216,7 @@ namespace Malovani
                     Console.Write("> Otevřít existující obrázek <");
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("                                          ###");
-                    
+
                 }
 
                 if (selectedOption == 3)
@@ -234,10 +228,6 @@ namespace Malovani
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("                                               ###");
                 }
-
-                
-
-                Debug.WriteLine(selectedOption);
             }
 
             Console.Clear();
@@ -282,7 +272,6 @@ namespace Malovani
                 }
 
                 return obrazek;
-
             }
 
             if (selectedOption == 2)
@@ -291,7 +280,6 @@ namespace Malovani
                 char[,] obrazek;
                 obrazek = NacteniObrazku();
                 return obrazek;
-
             }
 
             if (selectedOption == 3)
