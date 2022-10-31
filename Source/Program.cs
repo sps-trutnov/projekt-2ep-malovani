@@ -133,7 +133,7 @@ namespace Malovani
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
-            Console.WriteLine("###                                                  ACII  MALOVÁNÍ                                                  ###");
+            Console.WriteLine("###                                                  ASCII  MALOVÁNÍ                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
