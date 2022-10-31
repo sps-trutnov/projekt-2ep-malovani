@@ -32,8 +32,59 @@
             Rozlouceni();
         }
 
-        static void UlozeniObrazku(char[,] obrazek) {
-            throw new NotImplementedException();
+        static void UlozeniObrazku(char[,] obrazek)
+        {
+            string[] radky = new string[obrazek.GetLength(0)];
+
+            for(int y = 0; y < obrazek.GetLength(0); y++)
+            {
+                string aktualniRadek = ""; 
+                for (int x = 0; x < obrazek.GetLength(1); x++)
+                {
+                    aktualniRadek = aktualniRadek + obrazek[y, x]; 
+                }
+                radky[y] = aktualniRadek;
+                Console.WriteLine(radky);
+            }
+
+            Console.Write("Zapište název obrázku: ");
+            string jmenoObrazku = Console.ReadLine();
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            Console.WriteLine(celeJmenoObrazku);
+            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, radky);
+            
+        }
+
+        static char[,] NacteniObrazku()
+        {
+            char[,] obrazek;
+
+            Console.Write("Zadejte jméno obrázku: ");
+            string jmenoObrazku = Console.ReadLine();
+
+            string priponaObrazku = ".txt";
+            string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
+            string[] radkySouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
+
+            int sirkaObrazku = radkySouboru[0].Length;
+            int vyskaObrazku = radkySouboru.Length;
+
+            obrazek = new char[vyskaObrazku, sirkaObrazku];
+
+            for (int y = 0; y < radkySouboru.Length; y++)
+            {
+                char[] obsahVeStringu = radkySouboru[y].ToCharArray();
+
+                for (int x = 0; x < radkySouboru[0].Length; x++)
+                {
+
+                    obrazek[y, x] = obsahVeStringu[x];
+                }
+            }
+
+            return obrazek;
+
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa) {
