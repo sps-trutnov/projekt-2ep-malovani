@@ -346,6 +346,13 @@ namespace Malovani
             bool keySwitch = false;
             bool selectionConfirmed = false;
 
+            Console.SetCursorPosition(0, 12);
+            Console.Write("###                                             ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("> Vytvořit nový obrázek <");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write("                                            ###");
+
             while (selectionConfirmed == false)
             {
                 ConsoleKey key = Console.ReadKey(true).Key;
