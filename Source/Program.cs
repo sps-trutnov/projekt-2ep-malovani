@@ -1,4 +1,4 @@
-﻿namespace Malovani
+namespace Malovani
 {
     internal class Program
     {
@@ -13,6 +13,7 @@
             NastaveniBarev();
             Uvod();
 
+            Console.Clear();
             char[,] obrazek = ZiskatObrazek();
             PoziceKurzoru poziceMax = new PoziceKurzoru() { X = obrazek.GetLength(0) - 1, Y = obrazek.GetLength(1) - 1 };
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
@@ -256,6 +257,7 @@
                     Console.Write("                                               ###");
                 }
             }
+        }
 
             Console.Clear();
             Console.SetCursorPosition(0, 0);
