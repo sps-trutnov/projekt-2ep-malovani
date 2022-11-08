@@ -30,7 +30,7 @@ namespace Malovani
 
                 kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
                 kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
-                konec = ZnaciKonec(novaKlavesa);
+                konec = ZnaciKonec(novaKlavesa.Key);
                 Console.WriteLine();
             } while (!konec);
 
@@ -93,8 +93,8 @@ namespace Malovani
 
         }
 
-        static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa) {
-            throw new NotImplementedException();
+        static bool ZnaciKonec(ConsoleKey novaKlavesa) {
+            return novaKlavesa == ConsoleKey.Escape;
         }
 
         static PoziceKurzoru VlivOvladaniNaObrazek(ConsoleKeyInfo novaKlavesa, char[,] obrazek, char[] whitelist, PoziceKurzoru kurzor, PoziceKurzoru max)
@@ -111,19 +111,19 @@ namespace Malovani
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max)
         {
-            if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.X < max.X)
+            if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.X < max.X)
             {
                 kurzor.X = kurzor.X + 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.LeftArrow && kurzor.X > 0)
+            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.X > 0)
             {
                 kurzor.X = kurzor.X - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.Y > 0)
+            else if (novaKlavesa.Key == ConsoleKey.LeftArrow && kurzor.Y > 0)
             {
                 kurzor.Y = kurzor.Y - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.Y > max.Y)
+            else if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.Y < max.Y)
             {
                 kurzor.Y = kurzor.Y + 1;
             }
