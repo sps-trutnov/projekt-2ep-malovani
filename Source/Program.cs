@@ -1,4 +1,7 @@
+using System;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.Serialization;
 
 namespace Malovani
 {
@@ -20,12 +23,12 @@ namespace Malovani
             Console.Clear();
             //char[,] obrazek = new char[2, 5] { { 'A', 'H', 'O', 'J', '!' }, { '!', 'J', 'O', 'H', 'A' } };
             Random nahoda = new Random();
-            char[,] obrazek = new char[10, 10];
+            char[,] obrazek = new char[28, 15];
             for (int y = 0; y < obrazek.GetLength(0); y++)
                 for (int x = 0; x < obrazek.GetLength(1); x++)
                     obrazek[y, x] = (char)nahoda.Next(42, 127);
 
-            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 2, Y = 0 };
+            PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
 
 
@@ -67,6 +70,12 @@ namespace Malovani
 
         static void Vykresleni(PoziceKurzoru kurzor, char[,] obrazek)
         {
+            int maxOknoX = 120;
+            int maxOknoY = 30;
+
+            kurzor.X = 0;
+            kurzor.Y = 0;
+
             Console.SetCursorPosition(0, 0);
             int prevY = -1;
 
@@ -78,22 +87,31 @@ namespace Malovani
                     {
                         Console.WriteLine("");
                         prevY = y;
+
+                        if (obrazek.GetLength(1) >= maxOknoX-1)
+                            Console.SetCursorPosition(0, y);
+                        else if (obrazek.GetLength(1) == maxOknoX-2)
+                            Console.SetCursorPosition(1, y);
+                        else
+                            Console.SetCursorPosition(2, y);
                     }
                         
 
                     if (kurzor.Y == y && kurzor.X == x)
                     {
-                        Ohraniceni(x, y, obrazek, true);
-                        if (obrazek.GetLength(0) > 28 || obrazek.GetLength(1) > 118)
-                            if (obrazek.GetLength(0) >= 28)
-                                Console.SetCursorPosition(0, kurzor.Y + 1);
-                            if (obrazek.GetLength(1) >= 118)
-                                Console.SetCursorPosition(kurzor.X + 2, 0);
-                        else if (obrazek.GetLength(0) <= 28 || obrazek.GetLength(1) <= 118)
-                            if (obrazek.GetLength(0) <= 28)
-                                Console.SetCursorPosition(0, kurzor.Y + 1);
-                            if (obrazek.GetLength(1) <= 118)
-                                Console.SetCursorPosition(kurzor.X + 2, Console.GetCursorPosition().Top);
+                        if (obrazek.GetLength(0) >= maxOknoY-1)
+                            Console.SetCursorPosition(0, 0);
+                        else if (obrazek.GetLength(0) == maxOknoY-2)
+                            Console.SetCursorPosition(0, 1);
+                        else
+                            Console.SetCursorPosition(0, 2);
+
+                        if (obrazek.GetLength(1) >= maxOknoX-1)
+                            Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
+                        else if (obrazek.GetLength(1) == maxOknoX-2)
+                            Console.SetCursorPosition(1, Console.GetCursorPosition().Top);
+                        else
+                            Console.SetCursorPosition(2, Console.GetCursorPosition().Top);
                         //Console.SetCursorPosition(kurzor.X+2, kurzor.Y+1);
 
                         Console.BackgroundColor = ConsoleColor.Black;
@@ -104,88 +122,110 @@ namespace Malovani
                     }
                     else
                     {
-                        Ohraniceni(x, y, obrazek, false);
+                        Console.Write(obrazek[y, x]);
                     }
+                    
                 }
             }
 
-            if (obrazek.GetLength(0) <= 28)
+            // Rámeček levá a pravá strana
+            int stranaMod = 0;
+            if (obrazek.GetLength(1) == maxOknoX-1)
             {
-                int offset;
-                if (120 - obrazek.GetLength(1) <= 4 && 120 - obrazek.GetLength(1) >= 0)
+                OhraniceniVertikalni(1, 0, obrazek);
+                stranaMod = 1;
+            }
+            else if (obrazek.GetLength(1) == maxOknoX-2)
+            {
+                for (int x = 0; x < 2; x++)
                 {
-                    offset = 120 - obrazek.GetLength(1);
+                    int offset = 0;
+                    if (x == 1)
+                        offset++;
+                    OhraniceniVertikalni(x, 0, obrazek);
                 }
-                else
-                    offset = 4;
-                    Debug.WriteLine(offset);
-
-
-                Console.SetCursorPosition(0, 0);
-                Console.BackgroundColor = ConsoleColor.Gray;
-                for (int x = 0; x < obrazek.GetLength(1) + offset; x++)
+                stranaMod = 2;
+            }
+            else if (obrazek.GetLength(1) == maxOknoX-3)
+            {
+                for (int x = 0; x < 3; x++)
                 {
-                    Console.Write(" ");
+                    int offset = 0;
+                    int doubleX = x;
+                    if (doubleX == 1)
+                        offset++;
+                    else if (doubleX == 2)
+                    {
+                        doubleX = 0;
+                        offset++;
+                    }
+
+                    OhraniceniVertikalni(doubleX, offset, obrazek);
                 }
-                Console.BackgroundColor = ConsoleColor.White;
+                stranaMod = 3;
+            }
+            else if (obrazek.GetLength(1) < maxOknoX-3)
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    Debug.WriteLine(x);
+                    int offset = 0;
+                    int doubleX = x;
+                    if (doubleX == 1)
+                        offset++;
+                    else if (doubleX == 2)
+                    {
+                        doubleX = 0;
+                        offset++;
+                    }
+                    else if (doubleX == 3)
+                    {
+                        doubleX = 1;
+                        offset += 2;
+                    }
+
+                    OhraniceniVertikalni(doubleX, offset, obrazek);
+                }
+                stranaMod = 4;
             }
 
-            if (obrazek.GetLength(0) <= 29)
+            // Rámeček horní a dolní strana
+            if (obrazek.GetLength(0) == maxOknoY-1)
             {
-                int offset;
-                if (120 - obrazek.GetLength(1) <= 4 && 120 - obrazek.GetLength(1) >= 0)
-                {
-                    offset = 120 - obrazek.GetLength(1);
-                }
-                else
-                    offset = 4;
-
-                Console.BackgroundColor = ConsoleColor.Gray;
-                Console.SetCursorPosition(0, obrazek.GetLength(0)+1);
-                for (int x = 0; x < obrazek.GetLength(1) + offset; x++)
-                {
-                    Console.Write(" ");
-                }
-                Console.BackgroundColor = ConsoleColor.White;
+                OhraniceniHorizontalni(obrazek.GetLength(0), stranaMod, obrazek);
+            }
+            else if (obrazek.GetLength(0) <= maxOknoY - 2)
+            {
+                OhraniceniHorizontalni(0, stranaMod, obrazek);
+                OhraniceniHorizontalni(obrazek.GetLength(0), stranaMod, obrazek);
             }
         }
 
-        static void Ohraniceni(int x, int y, char[,] obrazek, bool kurzor = false)
+        static void OhraniceniVertikalni(int x, int offset, char[,] obrazek)
         {
-            if (!kurzor)
-            {
-                if (x == 0)
-                {
-                    if (obrazek.GetLength(1) <= 118)
-                        OhraniceniVykresleni();
-                    Console.Write(obrazek[y, x]);
-                }
-                else if (x == obrazek.GetLength(1)-1)
-                {
-                    Console.Write(obrazek[y, x]);
-                    if (obrazek.GetLength(1) <= 119)
-                        OhraniceniVykresleni();
-                }
-                else
-                {
-                    Console.Write(obrazek[y, x]);
-                }
-            }
-            else
-            {
-                if (x == 0)
-                    if (obrazek.GetLength(1) <= 118)
-                        OhraniceniVykresleni();
-                if (x == obrazek.GetLength(1))
-                    if (obrazek.GetLength(1) <= 119)
-                        OhraniceniVykresleni();
-            }
-        }
+            Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, 0);
 
-        static void OhraniceniVykresleni()
-        {
             Console.BackgroundColor = ConsoleColor.Gray;
-            Console.Write("  ");
+            for (int y = 0; y < obrazek.GetLength(0); y++)
+            {
+                Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, y);
+                Console.Write(" ");
+            }
+            Console.BackgroundColor = ConsoleColor.White;
+        }
+
+        static void OhraniceniHorizontalni(int y, int stranaMod, char[,] obrazek)
+        {
+            Console.SetCursorPosition(0, y);
+
+            Console.BackgroundColor = ConsoleColor.Gray;
+            for (int x = 0; x < obrazek.GetLength(1) + stranaMod; x++)
+            {
+                if (obrazek.GetLength(1) + stranaMod == x)
+                    break;
+                Console.SetCursorPosition(x, y);
+                Console.Write(" ");
+            }
             Console.BackgroundColor = ConsoleColor.White;
         }
 
