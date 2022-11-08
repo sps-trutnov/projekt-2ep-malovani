@@ -257,7 +257,6 @@ namespace Malovani
                     Console.Write("                                               ###");
                 }
             }
-        }
 
             Console.Clear();
             Console.SetCursorPosition(0, 0);
