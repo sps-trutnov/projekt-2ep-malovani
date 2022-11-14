@@ -162,7 +162,7 @@ namespace Malovani
                         else if (obrazek.GetLength(1) == maxOknoX - 2)
                             Console.SetCursorPosition(1, y);
                         else
-                            Console.SetCursorPosition(2, y);
+                            Console.SetCursorPosition(2, y+1);
                     }
 
 
@@ -265,7 +265,7 @@ namespace Malovani
             else if (obrazek.GetLength(0) <= maxOknoY - 2)
             {
                 OhraniceniHorizontalni(0, stranaMod, obrazek);
-                OhraniceniHorizontalni(obrazek.GetLength(0), stranaMod, obrazek);
+                OhraniceniHorizontalni(obrazek.GetLength(0)+1, stranaMod, obrazek);
             }
         }
 
@@ -274,7 +274,7 @@ namespace Malovani
             Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, 0);
 
             Console.BackgroundColor = ConsoleColor.Gray;
-            for (int y = 0; y < obrazek.GetLength(0); y++)
+            for (int y = 0; y < obrazek.GetLength(0)+1; y++)
             {
                 Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, y);
                 Console.Write(" ");
