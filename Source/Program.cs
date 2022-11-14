@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Malovani
 {
     internal class Program
