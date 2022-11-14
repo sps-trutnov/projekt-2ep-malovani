@@ -28,7 +28,7 @@ namespace Malovani
 
                 kurzor = VlivOvladaniNaObrazek(novaKlavesa, obrazek, Whitelist, kurzor, poziceMax);
                 kurzor = VlivOvladaniNaKurzor(novaKlavesa, kurzor, poziceMax);
-                konec = ZnaciKonec(novaKlavesa.Key);
+                konec = ZnaciKonec(novaKlavesa);
                 Console.WriteLine();
             } while (!konec);
 
@@ -100,7 +100,7 @@ namespace Malovani
             if (whitelist.Contains(novaKlavesa.KeyChar))
             {
                 obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
-                kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
+                //kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
 
             }
             Console.WriteLine();
