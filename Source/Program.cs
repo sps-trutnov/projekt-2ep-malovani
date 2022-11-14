@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Malovani
 {
     internal class Program
@@ -239,7 +237,6 @@ namespace Malovani
             {
                 for (int x = 0; x < 4; x++)
                 {
-                    Debug.WriteLine(x);
                     int offset = 0;
                     int doubleX = x;
                     if (doubleX == 1)
