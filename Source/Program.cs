@@ -101,7 +101,7 @@ namespace Malovani
         {
             if (whitelist.Contains(novaKlavesa.KeyChar))
             {
-                obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
+                obrazek[kurzor.Y, kurzor.X] = novaKlavesa.KeyChar;
                 //kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
 
             }
@@ -111,19 +111,19 @@ namespace Malovani
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max)
         {
-            if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.X < max.X)
+            if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.X < max.X+1)
             {
                 kurzor.X = kurzor.X + 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.X > 0)
+            else if (novaKlavesa.Key == ConsoleKey.LeftArrow && kurzor.X > 0)
             {
                 kurzor.X = kurzor.X - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.LeftArrow && kurzor.Y > 0)
+            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.Y > 0)
             {
                 kurzor.Y = kurzor.Y - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.Y < max.Y)
+            else if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.Y < max.Y-1)
             {
                 kurzor.Y = kurzor.Y + 1;
             }
