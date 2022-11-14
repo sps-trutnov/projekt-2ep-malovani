@@ -18,8 +18,6 @@ namespace Malovani
 
             PoziceKurzoru kurzor = new PoziceKurzoru() { X = 0, Y = 0 };
 
-
-
             bool konec;
             do
             {
@@ -31,7 +29,6 @@ namespace Malovani
                 kurzor = VlivOvladaniNaKurzor(novaKlavesa);
                 konec = ZnaciKonec(novaKlavesa);
             } while (!konec);
-
 
             UlozeniObrazku();
             NacteniObrazku();
@@ -77,7 +74,6 @@ namespace Malovani
 
                     obrazek[y, x] = obsahVeStringu[x];
                 }
-
             }
 
             return obrazek;
@@ -126,6 +122,9 @@ namespace Malovani
 
         static void VykresleniMenu()
         {
+            Console.SetCursorPosition(0, 0);
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("########################################################################################################################");
             Console.WriteLine("########################################################################################################################");
             Console.WriteLine("###                                                                                                                  ###");
@@ -133,7 +132,7 @@ namespace Malovani
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
-            Console.WriteLine("###                                                  ASCII  MALOVÁNÍ                                                  ###");
+            Console.WriteLine("###                                                  ASCII  MALOVÁNÍ                                                 ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
             Console.WriteLine("###                                                                                                                  ###");
@@ -162,9 +161,79 @@ namespace Malovani
         {
             VykresleniMenu();
 
-            ConsoleKey key = Console.ReadKey(true).Key;
+            int selectedOption = 1;
+            bool keySwitch = false;
+            bool selectionConfirmed = false;
 
-            if (key == ConsoleKey.NumPad1)
+            while (selectionConfirmed == false)
+            {
+                ConsoleKey key = Console.ReadKey(true).Key;
+                Console.SetCursorPosition(0, 0);
+                VykresleniMenu();
+
+                if (key == ConsoleKey.DownArrow && keySwitch == false)
+                {
+                    selectedOption++;
+                    keySwitch = true;
+                }
+
+                if (key == ConsoleKey.UpArrow && keySwitch == false)
+                {
+                    selectedOption--;
+                    keySwitch = true;
+                }
+
+                keySwitch = false;
+
+                if (key == ConsoleKey.Enter)
+                    selectionConfirmed = true;
+
+                if (selectedOption < 1)
+                {
+                    selectedOption = 1;
+                }
+
+                if (selectedOption > 3)
+                {
+                    selectedOption = 3;
+                }
+
+                if (selectedOption == 1)
+                {
+                    Console.SetCursorPosition(0, 12);
+                    Console.Write("###                                             ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("> Vytvořit nový obrázek <");
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("                                            ###");
+                }
+
+                if (selectedOption == 2)
+                {
+                    Console.SetCursorPosition(0, 14);
+                    Console.Write("###                                          ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("> Otevřít existující obrázek <");
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("                                          ###");
+
+                }
+
+                if (selectedOption == 3)
+                {
+                    Console.SetCursorPosition(0, 16);
+                    Console.Write("###                                               ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("> Ukončit aplikaci <");
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("                                               ###");
+                }
+            }
+
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+
+            if (selectedOption == 1)
             {
                 // Defaultni rozmery console 120 x 30 znaku
                 Console.WriteLine("Maximální šířka obrázku je 120");
@@ -179,7 +248,7 @@ namespace Malovani
                     width = 120;
                 }
                 Console.WriteLine();
-                Console.WriteLine("Maximální výška obrázku je 120");
+                Console.WriteLine("Maximální výška obrázku je 30");
                 Console.WriteLine("Zde zadejte výšku obrázku: ");
                 // získání výšky
                 string input_length = Console.ReadLine();
@@ -194,37 +263,28 @@ namespace Malovani
                 char[,] obrazek;
                 obrazek = new char[length, width];
 
-                for (int x = 0; x < obrazek.GetLength(0); x++)
+                for (int x = 0; x < obrazek.GetLength(1); x++)
                 {
-                    for (int y = 0; y < obrazek.GetLength(1); y++)
+                    for (int y = 0; y < obrazek.GetLength(0); y++)
                     {
                         obrazek[y, x] = ' ';
                     }
                 }
 
                 return obrazek;
-
             }
 
-            if (key == ConsoleKey.NumPad2)
+            if (selectedOption == 2)
 
             {
                 char[,] obrazek;
                 obrazek = NacteniObrazku();
                 return obrazek;
-
             }
 
-            if (key == ConsoleKey.NumPad3)
+            if (selectedOption == 3)
             {
                 System.Environment.Exit(0);
-            }
-
-            if (key != ConsoleKey.NumPad1 && key != ConsoleKey.NumPad2 && key != ConsoleKey.NumPad3)
-            {
-                Console.WriteLine("Neplatná hodnota");
-                Console.WriteLine("");
-                ZiskatObrazek();
             }
 
             throw new NotImplementedException();
