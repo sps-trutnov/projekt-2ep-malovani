@@ -94,7 +94,7 @@ namespace Malovani
         }
 
         static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa) {
-            throw new NotImplementedException();
+            return novaKlavesa.Key == ConsoleKey.Escape;
         }
 
         static PoziceKurzoru VlivOvladaniNaObrazek(ConsoleKeyInfo novaKlavesa, char[,] obrazek, char[] whitelist, PoziceKurzoru kurzor, PoziceKurzoru max)
