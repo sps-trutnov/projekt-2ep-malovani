@@ -51,7 +51,7 @@
             if (whitelist.Contains(novaKlavesa.KeyChar))
             {
                 obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
-                kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
+                //kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
 
             }
             Console.WriteLine();
@@ -68,7 +68,7 @@
             {
                 kurzor.X = kurzor.X - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.Y > 0)
+            else if (novaKlavesa.Key == ConsoleKey.UpArrow && kurzor.Y < 0)
             {
                 kurzor.Y = kurzor.Y - 1;
             }
