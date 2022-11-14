@@ -102,7 +102,7 @@ namespace Malovani
             if (whitelist.Contains(novaKlavesa.KeyChar))
             {
                 obrazek[kurzor.X, kurzor.Y] = novaKlavesa.KeyChar;
-                kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
+                //kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
 
             }
             Console.WriteLine();
