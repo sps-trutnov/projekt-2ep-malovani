@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Malovani
 {
     internal class Program
@@ -142,12 +144,9 @@ namespace Malovani
             int maxOknoX = 120;
             int maxOknoY = 30;
 
-            kurzor.X = 0;
-            kurzor.Y = 0;
-
             Console.SetCursorPosition(0, 0);
-            int prevY = -1;
-
+            int prevY = -10;
+            
             for (int y = 0; y < obrazek.GetLength(0); y++)
             {
                 for (int x = 0; x < obrazek.GetLength(1); x++)
@@ -158,17 +157,16 @@ namespace Malovani
                         prevY = y;
 
                         if (obrazek.GetLength(1) >= maxOknoX - 1)
-                            Console.SetCursorPosition(0, y);
+                            Console.SetCursorPosition(0, y+1);
                         else if (obrazek.GetLength(1) == maxOknoX - 2)
-                            Console.SetCursorPosition(1, y);
+                            Console.SetCursorPosition(1, y+1);
                         else
                             Console.SetCursorPosition(2, y+1);
                     }
 
-
                     if (kurzor.Y == y && kurzor.X == x)
                     {
-                        if (obrazek.GetLength(0) >= maxOknoY - 1)
+                        /*if (obrazek.GetLength(0) >= maxOknoY - 1)
                             Console.SetCursorPosition(0, 0);
                         else if (obrazek.GetLength(0) == maxOknoY - 2)
                             Console.SetCursorPosition(0, 1);
@@ -180,8 +178,10 @@ namespace Malovani
                         else if (obrazek.GetLength(1) == maxOknoX - 2)
                             Console.SetCursorPosition(1, Console.GetCursorPosition().Top);
                         else
-                            Console.SetCursorPosition(2, Console.GetCursorPosition().Top);
+                            Console.SetCursorPosition(2, Console.GetCursorPosition().Top);*/
                         //Console.SetCursorPosition(kurzor.X+2, kurzor.Y+1);
+
+                        Debug.WriteLine($"{kurzor.X}, {kurzor.Y}");
 
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
@@ -265,8 +265,10 @@ namespace Malovani
             else if (obrazek.GetLength(0) <= maxOknoY - 2)
             {
                 OhraniceniHorizontalni(0, stranaMod, obrazek);
-                OhraniceniHorizontalni(obrazek.GetLength(0)+1, stranaMod, obrazek);
+                OhraniceniHorizontalni(obrazek.GetLength(0) + 1, stranaMod, obrazek);
             }
+
+
         }
 
         static void OhraniceniVertikalni(int x, int offset, char[,] obrazek)
