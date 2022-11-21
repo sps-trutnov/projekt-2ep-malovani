@@ -1,8 +1,6 @@
-using System.Diagnostics;
-
 namespace Malovani
 {
-    internal class Program
+    class Program
     {
         struct PoziceKurzoru
         {
@@ -42,12 +40,12 @@ namespace Malovani
         {
             string[] radky = new string[obrazek.GetLength(0)];
 
-            for(int y = 0; y < obrazek.GetLength(0); y++)
+            for (int y = 0; y < obrazek.GetLength(0); y++)
             {
-                string aktualniRadek = ""; 
+                string aktualniRadek = "";
                 for (int x = 0; x < obrazek.GetLength(1); x++)
                 {
-                    aktualniRadek = aktualniRadek + obrazek[y, x]; 
+                    aktualniRadek = aktualniRadek + obrazek[y, x];
                 }
                 radky[y] = aktualniRadek;
                 Console.WriteLine(radky);
@@ -59,7 +57,6 @@ namespace Malovani
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
             Console.WriteLine(celeJmenoObrazku);
             File.WriteAllLines("obrazky\\" + celeJmenoObrazku, radky);
-            
         }
 
         static char[,] NacteniObrazku()
@@ -84,16 +81,15 @@ namespace Malovani
 
                 for (int x = 0; x < radkySouboru[0].Length; x++)
                 {
-
                     obrazek[y, x] = obsahVeStringu[x];
                 }
             }
 
             return obrazek;
-
         }
 
-        static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa) {
+        static bool ZnaciKonec(ConsoleKeyInfo novaKlavesa)
+        {
             return novaKlavesa.Key == ConsoleKey.Escape;
         }
 
@@ -102,16 +98,14 @@ namespace Malovani
             if (whitelist.Contains(novaKlavesa.KeyChar))
             {
                 obrazek[kurzor.Y, kurzor.X] = novaKlavesa.KeyChar;
-                //kurzor = VlivOvladaniNaKurzor(new ConsoleKeyInfo((char)13, ConsoleKey.Enter, false, false, false), kurzor, max);
-
             }
-            Console.WriteLine();
+
             return kurzor;
         }
 
         static PoziceKurzoru VlivOvladaniNaKurzor(ConsoleKeyInfo novaKlavesa, PoziceKurzoru kurzor, PoziceKurzoru max)
         {
-            if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.X < max.X+1)
+            if (novaKlavesa.Key == ConsoleKey.RightArrow && kurzor.X < max.X + 1)
             {
                 kurzor.X = kurzor.X + 1;
             }
@@ -123,7 +117,7 @@ namespace Malovani
             {
                 kurzor.Y = kurzor.Y - 1;
             }
-            else if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.Y < max.Y-1)
+            else if (novaKlavesa.Key == ConsoleKey.DownArrow && kurzor.Y < max.Y - 1)
             {
                 kurzor.Y = kurzor.Y + 1;
             }
@@ -146,7 +140,7 @@ namespace Malovani
 
             Console.SetCursorPosition(0, 0);
             int prevY = -10;
-            
+
             for (int y = 0; y < obrazek.GetLength(0); y++)
             {
                 for (int x = 0; x < obrazek.GetLength(1); x++)
@@ -157,32 +151,15 @@ namespace Malovani
                         prevY = y;
 
                         if (obrazek.GetLength(1) >= maxOknoX - 1)
-                            Console.SetCursorPosition(0, y+1);
+                            Console.SetCursorPosition(0, y + 1);
                         else if (obrazek.GetLength(1) == maxOknoX - 2)
-                            Console.SetCursorPosition(1, y+1);
+                            Console.SetCursorPosition(1, y + 1);
                         else
-                            Console.SetCursorPosition(2, y+1);
+                            Console.SetCursorPosition(2, y + 1);
                     }
 
                     if (kurzor.Y == y && kurzor.X == x)
                     {
-                        /*if (obrazek.GetLength(0) >= maxOknoY - 1)
-                            Console.SetCursorPosition(0, 0);
-                        else if (obrazek.GetLength(0) == maxOknoY - 2)
-                            Console.SetCursorPosition(0, 1);
-                        else
-                            Console.SetCursorPosition(0, 2);
-
-                        if (obrazek.GetLength(1) >= maxOknoX - 1)
-                            Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
-                        else if (obrazek.GetLength(1) == maxOknoX - 2)
-                            Console.SetCursorPosition(1, Console.GetCursorPosition().Top);
-                        else
-                            Console.SetCursorPosition(2, Console.GetCursorPosition().Top);*/
-                        //Console.SetCursorPosition(kurzor.X+2, kurzor.Y+1);
-
-                        Debug.WriteLine($"{kurzor.X}, {kurzor.Y}");
-
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(obrazek[y, x]);
@@ -193,7 +170,6 @@ namespace Malovani
                     {
                         Console.Write(obrazek[y, x]);
                     }
-
                 }
             }
 
@@ -267,8 +243,6 @@ namespace Malovani
                 OhraniceniHorizontalni(0, stranaMod, obrazek);
                 OhraniceniHorizontalni(obrazek.GetLength(0) + 1, stranaMod, obrazek);
             }
-
-
         }
 
         static void OhraniceniVertikalni(int x, int offset, char[,] obrazek)
@@ -276,7 +250,7 @@ namespace Malovani
             Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, 0);
 
             Console.BackgroundColor = ConsoleColor.Gray;
-            for (int y = 0; y < obrazek.GetLength(0)+1; y++)
+            for (int y = 0; y < obrazek.GetLength(0) + 1; y++)
             {
                 Console.SetCursorPosition((obrazek.GetLength(1) + 1) * x + offset, y);
                 Console.Write(" ");
@@ -298,7 +272,6 @@ namespace Malovani
             }
             Console.BackgroundColor = ConsoleColor.White;
         }
-
 
         static void VykresleniMenu()
         {
@@ -462,7 +435,6 @@ namespace Malovani
             }
 
             if (selectedOption == 2)
-
             {
                 char[,] obrazek;
                 obrazek = NacteniObrazku();
@@ -471,10 +443,10 @@ namespace Malovani
 
             if (selectedOption == 3)
             {
-                System.Environment.Exit(0);
+                Environment.Exit(0);
             }
 
-            throw new NotImplementedException();
+            throw new Exception("Došlo k neočekávané situaci.");
         }
 
         static void NastaveniBarev()
@@ -510,4 +482,3 @@ namespace Malovani
         }
     }
 }
-
