@@ -48,15 +48,13 @@ namespace Malovani
                     aktualniRadek = aktualniRadek + obrazek[y, x];
                 }
                 radky[y] = aktualniRadek;
-                Console.WriteLine(radky);
             }
 
             Console.Write("Zapište název obrázku: ");
             string jmenoObrazku = Console.ReadLine();
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
-            Console.WriteLine(celeJmenoObrazku);
-            File.WriteAllLines("obrazky\\" + celeJmenoObrazku, radky);
+            File.WriteAllLines("Obrazky\\" + celeJmenoObrazku, radky);
         }
 
         static char[,] NacteniObrazku()
@@ -68,7 +66,7 @@ namespace Malovani
 
             string priponaObrazku = ".txt";
             string celeJmenoObrazku = jmenoObrazku + priponaObrazku;
-            string[] radkySouboru = File.ReadAllLines("obrazky\\" + celeJmenoObrazku);
+            string[] radkySouboru = File.ReadAllLines("Obrazky\\" + celeJmenoObrazku);
 
             int sirkaObrazku = radkySouboru[0].Length;
             int vyskaObrazku = radkySouboru.Length;
